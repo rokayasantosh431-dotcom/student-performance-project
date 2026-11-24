@@ -7,7 +7,12 @@ st.set_page_config(page_title="Student Performance", layout="wide")
 st.title("Student Performance Analysis Dashboard")
 st.write("Analysis of factors associated with student academic performance")
 
-df = pd.read_csv("student-mat.csv", sep=None, engine="python")
+import zipfile
+
+with zipfile.ZipFile("archive (11) (1).zip") as z:
+    filename = next(f for f in z.namelist() if f.endswith("student-mat.csv"))
+    with z.open(filename) as file:
+        df = pd.read_csv(file, sep=None, engine="python")
 
 st.header("Dataset Overview")
 
